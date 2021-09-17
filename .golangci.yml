@@ -1,0 +1,62 @@
+linters-settings:
+  govet:
+    check-shadowing: true
+    settings:
+      printf:
+        funcs:
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Infof
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Warnf
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Errorf
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Fatalf
+  gocyclo:
+    #  https://groups.google.com/g/golang-nuts/c/HNNUjE5VWos
+    min-complexity: 10
+  dupl:
+    threshold: 100
+  goconst:
+    min-len: 2
+    min-occurrences: 2
+  misspell:
+    locale: US
+  lll:
+    line-length: 140
+
+  goimports:
+    local-prefixes: github.com/golangci/golangci-lint
+  gocritic:
+    enabled-tags:
+      - performance
+      - style
+      - experimental
+  wrapcheck:
+    ignoreSigs:
+      - fault.
+
+
+linters:
+  enable-all: true
+  disable:
+    - gochecknoglobals
+    - dupl
+    - golint
+    - maligned
+    - scopelint
+    - interfacer
+    - gci
+    - tagliatelle
+
+run:
+  # default concurrency is a available CPU number
+  concurrency: 4
+
+  # timeout for analysis, e.g. 30s, 5m, default is 1m
+  deadline: 1m
+
+  tests: false
+
+  skip-dirs:
+    - testdata
+    - scripts
+    - contrib
+    - bin
+    - vendor
